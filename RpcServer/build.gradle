@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'idea'
+
+
+group = 'com.mts.tech'
+archivesBaseName = 'jsonrpc2'
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'javax.servlet:javax.servlet-api:3.0.1'
+
+    compile 'com.fasterxml.jackson.core:jackson-core:2.4.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.3'
+//    compile 'org.javatuples:javatuples:1.2'
+//    compile 'org.apache.commons:commons-lang3:3.3.2'
+
+    compile 'org.slf4j:slf4j-api:1.7.7'
+}
+
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId 'jsonrpc2'
+            from components.java
+        }
+    }
+    
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url "$buildDir/repo"
+        }
+    }    
+}
+
+
+

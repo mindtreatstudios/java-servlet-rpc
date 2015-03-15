@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+apply from: 'gretty.plugin'
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile project(':RpcServer')
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+
+    compile 'com.fasterxml.jackson.core:jackson-core:2.4.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.3'
+
+//    compile 'org.javatuples:javatuples:1.2'
+
+    compile 'ch.qos.logback:logback-core:1.1.2'
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'org.slf4j:slf4j-api:1.7.7'
+}
