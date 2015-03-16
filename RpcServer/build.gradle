@@ -4,7 +4,7 @@ apply plugin: 'idea'
 
 
 group = 'com.mts.tech'
-archivesBaseName = 'jsonrpc2'
+archivesBaseName = 'servlet-rpc'
 version = '0.1.0'
 
 repositories {
@@ -28,7 +28,7 @@ dependencies {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId 'jsonrpc2'
+            artifactId 'servlet-rpc'
             from components.java
         }
     }
