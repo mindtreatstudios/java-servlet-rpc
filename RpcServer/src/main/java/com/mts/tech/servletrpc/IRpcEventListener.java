@@ -1,7 +1,7 @@
-package com.mts.tech.jsonrpc2;
+package com.mts.tech.servletrpc;
 
-import com.mts.tech.jsonrpc2.model.RpcRequest;
-import com.mts.tech.jsonrpc2.model.RpcResponse;
+import com.mts.tech.servletrpc.model.RpcRequest;
+import com.mts.tech.servletrpc.model.RpcResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

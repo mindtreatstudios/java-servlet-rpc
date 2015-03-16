@@ -1,9 +1,9 @@
-package com.mts.tech.jsonrpc2.impl;
+package com.mts.tech.servletrpc.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.mts.tech.jsonrpc2.IRpcEncodeCodec;
-import com.mts.tech.jsonrpc2.model.RpcResponse;
+import com.mts.tech.servletrpc.IRpcEncodeCodec;
+import com.mts.tech.servletrpc.model.RpcResponse;
 
 import javax.servlet.http.HttpServletResponse;
 

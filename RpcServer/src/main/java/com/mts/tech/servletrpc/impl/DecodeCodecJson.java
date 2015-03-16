@@ -1,11 +1,11 @@
-package com.mts.tech.jsonrpc2.impl;
+package com.mts.tech.servletrpc.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mts.tech.jsonrpc2.IRpcDecodeCodec;
-import com.mts.tech.jsonrpc2.model.RpcErrorCodes;
-import com.mts.tech.jsonrpc2.model.RpcException;
-import com.mts.tech.jsonrpc2.model.RpcRequest;
+import com.mts.tech.servletrpc.IRpcDecodeCodec;
+import com.mts.tech.servletrpc.model.RpcErrorCodes;
+import com.mts.tech.servletrpc.model.RpcException;
+import com.mts.tech.servletrpc.model.RpcRequest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.servlet.http.HttpServletRequest;

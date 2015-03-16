@@ -3,7 +3,7 @@ package ServletExamples.api;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.mts.tech.jsonrpc2.model.RpcException;
+import com.mts.tech.servletrpc.model.RpcException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

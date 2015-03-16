@@ -1,4 +1,4 @@
-package com.mts.tech.jsonrpc2.model;
+package com.mts.tech.servletrpc.model;
 
 /**
  * Created by reyda_000 on 3/15/2015.

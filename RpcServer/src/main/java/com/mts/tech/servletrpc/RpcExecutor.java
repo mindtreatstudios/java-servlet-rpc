@@ -1,6 +1,6 @@
-package com.mts.tech.jsonrpc2;
+package com.mts.tech.servletrpc;
 
-import com.mts.tech.jsonrpc2.model.*;
+import com.mts.tech.servletrpc.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

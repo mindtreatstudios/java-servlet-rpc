@@ -1,14 +1,14 @@
 package ServletExamples;
 
 import ServletExamples.api.Test;
-import com.mts.tech.jsonrpc2.RpcDecoder;
-import com.mts.tech.jsonrpc2.RpcEncoder;
-import com.mts.tech.jsonrpc2.RpcExecutor;
-import com.mts.tech.jsonrpc2.RpcServer;
-import com.mts.tech.jsonrpc2.impl.DecodeCodecGet;
-import com.mts.tech.jsonrpc2.impl.DecodeCodecJson;
-import com.mts.tech.jsonrpc2.impl.DecodeCodecMultipart;
-import com.mts.tech.jsonrpc2.impl.EncodeCodecJson;
+import com.mts.tech.servletrpc.RpcDecoder;
+import com.mts.tech.servletrpc.RpcEncoder;
+import com.mts.tech.servletrpc.RpcExecutor;
+import com.mts.tech.servletrpc.RpcServer;
+import com.mts.tech.servletrpc.impl.DecodeCodecGet;
+import com.mts.tech.servletrpc.impl.DecodeCodecJson;
+import com.mts.tech.servletrpc.impl.DecodeCodecMultipart;
+import com.mts.tech.servletrpc.impl.EncodeCodecJson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;

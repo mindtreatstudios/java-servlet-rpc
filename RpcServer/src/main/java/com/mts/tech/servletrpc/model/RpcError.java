@@ -1,4 +1,4 @@
-package com.mts.tech.jsonrpc2.model;
+package com.mts.tech.servletrpc.model;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 

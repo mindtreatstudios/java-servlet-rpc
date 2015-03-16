@@ -1,4 +1,4 @@
-package com.mts.tech.jsonrpc2.model;
+package com.mts.tech.servletrpc.model;
 
 public class RpcException extends Exception {
 	private static final long serialVersionUID = 1L;
