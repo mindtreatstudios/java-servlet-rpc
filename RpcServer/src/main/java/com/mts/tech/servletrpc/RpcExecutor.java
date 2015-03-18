@@ -42,50 +42,59 @@ public class RpcExecutor {
 
         Method method = null;
         try {
-            if (rpcRequest.params != null)
-            {
-                Log.debug("Searching method "+rpcRequest.methodName+", for params class "+rpcRequest.params.getClass());
+            do {
+                if (rpcRequest.params != null)
+                {
+                    Log.debug("Searching method "+rpcRequest.methodName+", for params class "+rpcRequest.params.getClass());
 
-                // Try signature 1
-                try{
-                    method = service.getClass().getMethod(rpcRequest.methodName, rpcRequest.params.getClass(), HttpServletRequest.class, HttpServletResponse.class);
-                }catch (Exception e)
-                { }
-                if (method != null)
-                    rpcResponse.result = method.invoke(service, rpcRequest.params, httpRequest, httpResponse);
+                    // Try signature 1
+                    try{
+                        method = service.getClass().getMethod(rpcRequest.methodName, rpcRequest.params.getClass(), HttpServletRequest.class, HttpServletResponse.class);
+                    }catch (Exception e)
+                    { }
+                    if (method != null) {
+                        rpcResponse.result = method.invoke(service, rpcRequest.params, httpRequest, httpResponse);
+                        break;
+                    }
 
-                // Try signature 2
-                try{
-                    method = service.getClass().getMethod(rpcRequest.methodName, rpcRequest.params.getClass());
-                }catch (Exception e)
-                { }
-                if (method != null)
-                    rpcResponse.result = method.invoke(service, rpcRequest.params);
-            }
-            else
-            {
-                Log.debug("Searching method "+rpcRequest.methodName);
+                    // Try signature 2
+                    try{
+                        method = service.getClass().getMethod(rpcRequest.methodName, rpcRequest.params.getClass());
+                    }catch (Exception e)
+                    { }
+                    if (method != null) {
+                        rpcResponse.result = method.invoke(service, rpcRequest.params);
+                        break;
+                    }
+                }
+                else
+                {
+                    Log.debug("Searching method "+rpcRequest.methodName);
 
-                // Try signature 1
-                try{
-                    method = service.getClass().getMethod(rpcRequest.methodName, HttpServletRequest.class, HttpServletResponse.class);
-                }catch (Exception e)
-                { }
-                if (method != null)
-                    rpcResponse.result = method.invoke(service, httpRequest, httpResponse);
+                    // Try signature 1
+                    try{
+                        method = service.getClass().getMethod(rpcRequest.methodName, HttpServletRequest.class, HttpServletResponse.class);
+                    }catch (Exception e)
+                    { }
+                    if (method != null) {
+                        rpcResponse.result = method.invoke(service, httpRequest, httpResponse);
+                        break;
+                    }
 
-                // Try signature 2
-                try{
-                    method = service.getClass().getMethod(rpcRequest.methodName);
-                }catch (Exception e)
-                { }
-                if (method != null)
-                    rpcResponse.result = method.invoke(service);
-            }
+                    // Try signature 2
+                    try{
+                        method = service.getClass().getMethod(rpcRequest.methodName);
+                    }catch (Exception e)
+                    { }
+                    if (method != null) {
+                        rpcResponse.result = method.invoke(service);
+                        break;
+                    }
+                }
 
-            if (method == null)
-                rpcResponse.error = new RpcError(RpcErrorCodes.METHOD_NOT_FOUND, "Method not found.");
-
+                if (method == null)
+                    rpcResponse.error = new RpcError(RpcErrorCodes.METHOD_NOT_FOUND, "Method not found.");
+            } while(false);
         } catch (IllegalAccessException e) {
             rpcResponse.error = new RpcError(RpcErrorCodes.METHOD_NOT_AVAILABLE, "Method not available.");
         } catch (IllegalArgumentException e) {
