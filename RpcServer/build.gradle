@@ -5,7 +5,7 @@ apply plugin: 'idea'
 
 group = 'com.mts.tech'
 archivesBaseName = 'servlet-rpc'
-version = '0.1.1'
+version = '0.1.2'
 
 repositories {
     mavenCentral()
@@ -30,6 +30,10 @@ publishing {
         mavenJava(MavenPublication) {
             artifactId 'servlet-rpc'
             from components.java
+            
+            artifact (sourceJar) { // (2)
+                classifier = 'sources'
+            }
         }
     }
     
@@ -39,6 +43,14 @@ publishing {
             url "$buildDir/repo"
         }
     }    
+}
+
+
+
+// (1)
+task sourceJar (type : Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 
