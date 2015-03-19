@@ -5,11 +5,16 @@ import com.mts.tech.servletrpc.IRpcDecodeCodec;
 import com.mts.tech.servletrpc.model.RpcErrorCodes;
 import com.mts.tech.servletrpc.model.RpcException;
 import com.mts.tech.servletrpc.model.RpcRequest;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class DecodeCodecGet implements IRpcDecodeCodec {
+
+    static final Logger Log = LoggerFactory.getLogger(DecodeCodecGet.class);
 
     private boolean strictJsonRpc2Flag = true;
 	private ObjectMapper jsonMapper;
@@ -26,6 +31,8 @@ public class DecodeCodecGet implements IRpcDecodeCodec {
 
 	@Override
 	public RpcRequest decode(HttpServletRequest request) throws RpcException {
+
+        Log.debug("Decoding request with parameters: "+request.getQueryString());
 
         if (strictJsonRpc2Flag) {
             String jsonrpc = request.getParameter("jsonrpc");
@@ -53,6 +60,7 @@ public class DecodeCodecGet implements IRpcDecodeCodec {
             try {
                 rpcRequest.params = jsonMapper.readTree(params);
             } catch (IOException e) {
+                Log.error(ExceptionUtils.getStackTrace(e));
                 throw new RpcException(RpcErrorCodes.PARSE_ERROR, "Invalid params json string");
             }
 

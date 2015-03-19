@@ -1,6 +1,7 @@
 package com.mts.tech.servletrpc;
 
 import com.mts.tech.servletrpc.model.*;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,12 +96,19 @@ public class RpcExecutor {
                 if (method == null)
                     rpcResponse.error = new RpcError(RpcErrorCodes.METHOD_NOT_FOUND, "Method not found.");
             } while(false);
-        } catch (IllegalAccessException e) {
+        }
+        catch (IllegalAccessException e) {
+            Log.error(ExceptionUtils.getMessage(e)+", "+ExceptionUtils.getStackTrace(e));
             rpcResponse.error = new RpcError(RpcErrorCodes.METHOD_NOT_AVAILABLE, "Method not available.");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e) {
+            Log.error(ExceptionUtils.getMessage(e)+", "+ExceptionUtils.getStackTrace(e));
             rpcResponse.error = new RpcError(RpcErrorCodes.INVALID_PARAMS, "Invalid params");
-        } catch (InvocationTargetException e) {
+        }
+        catch (InvocationTargetException e) {
             Throwable t = e.getTargetException();
+            Log.error("RPC caught api exception "+ ExceptionUtils.getMessage(t)+", "+ExceptionUtils.getStackTrace(t));
+
             if (t.getClass().isInstance(RpcException.class))
                 rpcResponse.error = new RpcError((RpcException)t);
             else
