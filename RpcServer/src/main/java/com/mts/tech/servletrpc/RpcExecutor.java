@@ -37,6 +37,7 @@ public class RpcExecutor {
         Log.debug("Searching namespace "+rpcRequest.methodNamespace);
         Object service = services.get(rpcRequest.methodNamespace);
         if (service == null) {
+            Log.error("Method namespace not found");
             rpcResponse.error = new RpcError(RpcErrorCodes.METHOD_NOT_FOUND, "Method namespace not found.");
             return rpcResponse;
         }
