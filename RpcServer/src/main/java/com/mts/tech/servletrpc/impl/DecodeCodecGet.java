@@ -36,7 +36,11 @@ public class DecodeCodecGet implements IRpcDecodeCodec {
 
 
         try {
-            Log.trace("Decoding request with parameters: " + URLDecoder.decode(request.getQueryString(), "UTF-8"));
+            String queryString = request.getQueryString();
+            if (queryString == null)
+                Log.error("Request query string is null!!!" + request.getRequestURI());
+            else
+                Log.trace("Decoding request with parameters: " + URLDecoder.decode(request.getQueryString(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             Log.error(ExceptionUtils.getStackTrace(e));
         }

@@ -1,10 +1,14 @@
 package com.mts.tech.servletrpc;
 
+import com.mts.tech.servletrpc.model.RpcError;
+import com.mts.tech.servletrpc.model.RpcErrorCodes;
+import com.mts.tech.servletrpc.model.RpcException;
 import com.mts.tech.servletrpc.model.RpcRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 /**
@@ -36,15 +40,11 @@ public class RpcDecoder {
         if (httpRequest == null)
             return null;
 
-        IRpcDecodeCodec codec = getCodecForRequest(httpRequest);
-        if (codec == null)
-            throw new Exception("Missing codec for request "+httpRequest);
-
-        return codec.decode(httpRequest);
+        return getCodecForRequest(httpRequest).decode(httpRequest);
     }
 
     // Utility
-    private IRpcDecodeCodec getCodecForRequest(HttpServletRequest httpRequest)
+    private IRpcDecodeCodec getCodecForRequest(HttpServletRequest httpRequest) throws Exception
     {
         String method = httpRequest.getMethod();
         String contentType = httpRequest.getHeader("Content-Type");
@@ -55,11 +55,36 @@ public class RpcDecoder {
                 contentType = contentType.substring(0, index);
         }
 
-        return getCodec(method, contentType);
+        IRpcDecodeCodec codec = getCodec(method, contentType);
+        if (codec == null)
+            throw new RpcException(RpcErrorCodes.PARSE_ERROR, "Missing codec for request "+requestHeadersToString(httpRequest));
+
+        return codec;
     }
 
     private String hashForMethodAndContentType(String httpMethod, String contentType)
     {
         return httpMethod+"/"+contentType;
+    }
+
+    private String requestHeadersToString(HttpServletRequest httpRequest)
+    {
+        StringBuilder result = new StringBuilder();
+        String NEW_LINE = System.getProperty("line.separator");
+
+        Enumeration<String> headerNames = httpRequest.getHeaderNames();
+        while (headerNames != null && headerNames.hasMoreElements())
+        {
+            String headerName = headerNames.nextElement();
+
+            Enumeration<String> headerValues = httpRequest.getHeaders(headerName);
+            while (headerValues != null && headerValues.hasMoreElements())
+            {
+                String headerValue = headerValues.nextElement();
+                result.append(headerName+":"+headerValue+NEW_LINE);
+            }
+        }
+
+        return result.toString();
     }
 }
